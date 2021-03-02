@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rox-fG-T5i">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="FDU-EQ-tbK">
+            <objects>
+                <viewController id="rox-fG-T5i" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tGq-p8-J79">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pokeapi_256" translatesAutoresizingMaskIntoConstraints="NO" id="rr3-m4-gQf">
+                                <rect key="frame" x="50" y="398" width="314" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="tcb-7w-xRu"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="HGi-em-XGA"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="HGi-em-XGA" firstAttribute="trailing" secondItem="rr3-m4-gQf" secondAttribute="trailing" constant="50" id="Hsy-BQ-2zv"/>
+                            <constraint firstItem="rr3-m4-gQf" firstAttribute="leading" secondItem="HGi-em-XGA" secondAttribute="leading" constant="50" id="Pio-US-LWh"/>
+                            <constraint firstItem="rr3-m4-gQf" firstAttribute="centerY" secondItem="tGq-p8-J79" secondAttribute="centerY" id="xfo-5c-KUr"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YyR-gE-o4p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="157" y="83"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="pokeapi_256" width="257" height="103"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
