@@ -59,12 +59,27 @@ class PokemonListViewController: UIViewController, Storyboarded {
     // MARK: - Bindables
     
     private func setupBindables() {
-        viewModel?.pokemonsList.bind({ [weak self] pokemons in
+        viewModel?.pokemonListViewState.bind({ [weak self] state in
             guard let strongSelf = self else { return }
+            
             DispatchQueue.main.async {
+                strongSelf.configureView(withState: state)
                 strongSelf.reloadCollectionView()
             }
         })
+    }
+    
+    // MARK: - View State
+    
+    private func configureView(withState state: PagingViewState<DLPokemon>) {
+        switch state {
+        case .populated, .paging, .initial:
+            collectionView.backgroundView = UIView(frame: .zero)
+        case .empty:
+            print("Show empty state")
+        case .error(_):
+            print("Show retry state")
+        }
     }
     
 }

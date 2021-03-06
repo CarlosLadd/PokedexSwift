@@ -9,9 +9,9 @@ import UIKit
 
 protocol PokemonListViewModelProtocol {
     
-    var pokemonsList: Bindable<[DLPokemon]> { get }
-    
     var pokemonsCells: [PokemonListCellViewModelProtocol] { get }
+    
+    var pokemonListViewState: Bindable<PagingViewState<DLPokemon>> { get }
     
     func getPokemonList()
     

@@ -16,16 +16,20 @@ final class PokemonListViewModel: PokemonListViewModelProtocol {
     
     // MARK: - Reactive Properties
     
-    private (set) var pokemonsList: Bindable<[DLPokemon]> = Bindable([DLPokemon]())
+    private (set) var pokemonListViewState: Bindable<PagingViewState<DLPokemon>> = Bindable(.initial)
     
     // MARK: - Computed Properties
     
     private var pokemons: [DLPokemon] {
-        return pokemonsList.value
+        return pokemonListViewState.value.currentEntities
     }
     
     var pokemonsCells: [PokemonListCellViewModelProtocol] {
         return pokemons.compactMap { PokemonListCellViewModel($0) }
+    }
+    
+    var needsPrefetch: Bool {
+        return pokemonListViewState.value.needsPrefetch
     }
     
     // MARK: - Initializers
@@ -37,7 +41,9 @@ final class PokemonListViewModel: PokemonListViewModelProtocol {
     // MARK: - PokemonListViewModelProtocol
     
     func getPokemonList() {
-        pokemonsList.value = NetworkConfiguration.shared.pokemonLocalArray
+        let pokemons = NetworkConfiguration.shared.pokemonLocalArray
+        
+        pokemonListViewState.value = .populated(pokemons)
         
         // Pre-Fetch Scroll interaction
         /*interactor.getPokemonList(page: 0, completion: { result in
