@@ -46,14 +46,14 @@ enum PagingViewState<Entity>: Equatable where Entity: Equatable {
     var currentPage: Int {
         switch self {
         case .initial, .populated, .empty, .error:
-            return 1
+            return 0
         case .paging(_, let page):
             return page
         }
     }
     
     var isInitialPage: Bool {
-        return currentPage == 1
+        return currentPage == 0
     }
     
     var needsPrefetch: Bool {

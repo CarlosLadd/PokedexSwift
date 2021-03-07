@@ -41,19 +41,40 @@ final class PokemonListViewModel: PokemonListViewModelProtocol {
     // MARK: - PokemonListViewModelProtocol
     
     func getPokemonList() {
-        let pokemons = NetworkConfiguration.shared.pokemonLocalArray
-        
-        pokemonListViewState.value = .populated(pokemons)
-        
-        // Pre-Fetch Scroll interaction
-        /*interactor.getPokemonList(page: 0, completion: { result in
+        fetchPokemons(currentPage: pokemonListViewState.value.currentPage)
+    }
+    
+    private func fetchPokemons(currentPage: Int) {
+        interactor.getPokemonList(page: currentPage, completion: { result in
             switch result {
-            case .success(let pokemonArray):
-                print("Pokemon List: \(pokemonArray.count)")
+            case .success(let pokemons):
+                var parsedPokemon = [DLPokemon]()
+                var counter: Int = self.pokemons.count == 0 ? 1 : self.pokemons.count
+                
+                for var pokemon in pokemons {
+                    pokemon.imageURL = String(format: "https://pokeres.bastionbot.org/images/pokemon/%d.png", counter)
+                    parsedPokemon.append(pokemon)
+                    counter += 1
+                }
+                
+                self.pokemonListViewState.value = self.parsePokemonsResult(pokemons: parsedPokemon,
+                                                                           currentPage: currentPage,
+                                                                           currentPokemons: self.pokemons)
             case .failure(let error):
-                print("Error: \(error.localizedDescription)")
+                self.pokemonListViewState.value = .error(error)
             }
-        })*/
+        })
+    }
+    
+    private func parsePokemonsResult(pokemons: [DLPokemon],
+                                     currentPage: Int,
+                                     currentPokemons: [DLPokemon]) -> PagingViewState<DLPokemon> {
+        var allPokemons = (currentPage == 0 ? [] : currentPokemons)
+        allPokemons.append(contentsOf: pokemons)
+        
+        guard !allPokemons.isEmpty else { return .empty }
+        
+        return pokemons.isEmpty ? .populated(allPokemons) : .paging(allPokemons, next: currentPage + 1)
     }
     
 }

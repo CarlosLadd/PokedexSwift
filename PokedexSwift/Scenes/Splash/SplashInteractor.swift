@@ -14,6 +14,7 @@ struct SplashInteractor: SplashInteractorProtocol {
     }
     
     func getAllPokemonList(completion: @escaping (Result<[DLPokemon], Error>) -> Void) {
+        // TODO: Get only the first page
         pokemonUseCase.getPokemonListAt(page: 0,
                                         completion: completion)
     }

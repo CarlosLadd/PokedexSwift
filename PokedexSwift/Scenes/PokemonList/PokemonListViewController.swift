@@ -18,6 +18,8 @@ class PokemonListViewController: UIViewController, Storyboarded {
     
     private var previewLayout: VerticalFlowLayout!
     private var displayedCellsIndexPaths = Set<IndexPath>()
+    private var prefetchDataSource: CollectionViewDataSourcePrefetching!
+    private var dataSource: CollectionViewDataSourcePaging<PokemonListCellViewModelProtocol>!
     
     // MARK: - Lifecycle
     
@@ -52,7 +54,16 @@ class PokemonListViewController: UIViewController, Storyboarded {
     private func reloadCollectionView() {
         guard let _ = viewModel else { return }
         
-        collectionView.dataSource = self
+        dataSource = CollectionViewDataSourcePaging.make(for: viewModel.pokemonsCells)
+        
+        prefetchDataSource = CollectionViewDataSourcePrefetching(cellCount: viewModel.pokemonsCells.count,
+                                                                     needsPrefetch: viewModel.needsPrefetch,
+                                                                     prefetchHandler: { [weak self] in
+                                                                        self?.viewModel?.getPokemonList()
+                                                                     })
+        
+        collectionView.dataSource = dataSource
+        collectionView.prefetchDataSource = prefetchDataSource
         collectionView.reloadData()
     }
     
@@ -97,22 +108,12 @@ extension PokemonListViewController: UICollectionViewDelegate {
     
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: - TabBarScrollable
 
-extension PokemonListViewController: UICollectionViewDataSource {
+extension PokemonListViewController: TabBarScrollable {
     
-    // MARK: - Collection view data source
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.pokemonsCells.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let viewModelFocus = viewModel.pokemonsCells[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokemonListPreviewCollectionViewCell", for: indexPath) as! PokemonListPreviewCollectionViewCell
-        cell.viewModel = viewModelFocus
-        
-        return cell
+    func handleTabBarSelection() {
+        collectionView.scrollToTop(animated: true)
     }
     
 }

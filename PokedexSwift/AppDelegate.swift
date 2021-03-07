@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 @available(iOS 13.0, *)
 @main
@@ -16,6 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         _ = DIContainer.shared
+        // Limit of cache image
+        KingfisherManager.shared.cache.memoryStorage.config.totalCostLimit = 80 * 1024
+        KingfisherManager.shared.cache.memoryStorage.config.countLimit = 60
         
         navigationHandler = DIContainer.shared.resolve()
         window?.rootViewController = SplashBuilder.buildViewController()

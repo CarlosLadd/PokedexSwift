@@ -9,6 +9,14 @@ import UIKit
 
 extension UICollectionView {
     
+    func isScrolledToTop() -> Bool {
+        return contentOffset == .zero
+    }
+    
+    func scrollToTop(animated: Bool) {
+        setContentOffset(.zero, animated: animated)
+    }
+    
     // MARK: - Nib Register
     
     func registerNib<T: UICollectionViewCell>(cellType: T.Type, bundle: Bundle? = nil) {

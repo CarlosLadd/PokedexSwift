@@ -23,7 +23,8 @@ struct PokemonListInteractor: PokemonListInteractorProtocol {
     }
     
     func getPokemonList(page: Int, completion: @escaping (Result<[DLPokemon], Error>) -> Void) {
-        pokemonUseCase.getPokemonListAt(page: page, completion: completion)
+        // TODO: currentPage * 20 the offset value per page
+        pokemonUseCase.getPokemonListAt(page: page * 20, completion: completion)
     }
     
 }

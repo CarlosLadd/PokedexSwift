@@ -10,8 +10,8 @@ import UIKit
 protocol PokemonListViewModelProtocol {
     
     var pokemonsCells: [PokemonListCellViewModelProtocol] { get }
-    
     var pokemonListViewState: Bindable<PagingViewState<DLPokemon>> { get }
+    var needsPrefetch: Bool { get }
     
     func getPokemonList()
     
