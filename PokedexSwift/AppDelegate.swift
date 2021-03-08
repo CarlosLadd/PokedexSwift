@@ -16,10 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var navigationHandler: NavigationHandlerProtocol?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        _ = DIContainer.shared
         // Limit of cache image
-        KingfisherManager.shared.cache.memoryStorage.config.totalCostLimit = 80 * 1024
-        KingfisherManager.shared.cache.memoryStorage.config.countLimit = 60
+        KingfisherManager.shared.cache.memoryStorage.config.totalCostLimit = 100 * 1024
+        KingfisherManager.shared.cache.memoryStorage.config.countLimit = 100
         
         navigationHandler = DIContainer.shared.resolve()
         window?.rootViewController = SplashBuilder.buildViewController()

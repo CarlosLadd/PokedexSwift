@@ -14,12 +14,13 @@ protocol PokemonListViewModelProtocol {
     var needsPrefetch: Bool { get }
     
     func getPokemonList()
+    func getPokemonAt(index: IndexPath) -> DLPokemon
     
 }
 
 protocol PokemonListCoordinatorProtocol: class {
     
-    func showPokemonDetail(for name: String)
+    func showPokemonDetail(for pokemon: DLPokemon)
     
 }
 

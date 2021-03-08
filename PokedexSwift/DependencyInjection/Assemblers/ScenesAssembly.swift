@@ -13,7 +13,8 @@ final class ScenesAssembly: Assembly {
     func assemble(container: Container) {
         let assemblies: [Assembly] = [
             SplashAssembly(),
-            PokemonListAssembly()
+            PokemonListAssembly(),
+            PokemonDetailAssembly()
         ]
         
         assemblies.forEach { $0.assemble(container: container) }
