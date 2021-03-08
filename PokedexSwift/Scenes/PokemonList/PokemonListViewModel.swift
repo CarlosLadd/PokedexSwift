@@ -49,7 +49,7 @@ final class PokemonListViewModel: PokemonListViewModelProtocol {
             switch result {
             case .success(let pokemons):
                 var parsedPokemon = [DLPokemon]()
-                var counter: Int = self.pokemons.count == 0 ? 1 : self.pokemons.count
+                var counter: Int = self.pokemons.count == 0 ? 1 : self.pokemons.count + 1
                 
                 for var pokemon in pokemons {
                     pokemon.imageURL = String(format: "https://pokeres.bastionbot.org/images/pokemon/%d.png", counter)
@@ -75,6 +75,12 @@ final class PokemonListViewModel: PokemonListViewModelProtocol {
         guard !allPokemons.isEmpty else { return .empty }
         
         return pokemons.isEmpty ? .populated(allPokemons) : .paging(allPokemons, next: currentPage + 1)
+    }
+    
+    // MARK: - Get Pokemon Struct
+    
+    func getPokemonAt(index: IndexPath) -> DLPokemon {
+        self.pokemons[index.row]
     }
     
 }

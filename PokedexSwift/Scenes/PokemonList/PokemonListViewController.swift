@@ -99,6 +99,10 @@ class PokemonListViewController: UIViewController, Storyboarded {
 
 extension PokemonListViewController: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        coordinator?.showPokemonDetail(for: viewModel.getPokemonAt(index: indexPath))
+    }
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if !displayedCellsIndexPaths.contains(indexPath) {
             displayedCellsIndexPaths.insert(indexPath)
