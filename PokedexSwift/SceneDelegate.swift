@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 @available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -14,6 +15,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var navigationHandler: NavigationHandlerProtocol?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        // Limit of cache image
+        KingfisherManager.shared.cache.memoryStorage.config.totalCostLimit = 100 * 1024
+        KingfisherManager.shared.cache.memoryStorage.config.countLimit = 100
+        
         navigationHandler = DIContainer.shared.resolve()
         
         guard let windowScene = scene as? UIWindowScene else { return }
